@@ -48,6 +48,7 @@ Run as for as long as you want to capture data.
 
 ***WARNING THIS IS AN OPEN PORT DIRECT INTO YOUR NETWORK. DO NOT DO THIS.***
 ***I AM NOT RESPONSIBLE FOR VIRUSES, BROKEN COMPUTERS, OR MALWARE. I REPEAT, YOU SHOULD NOT DO THIS.*** 
+
 (Windows) To view Grafana from remote computer from another network:
 1. Open Windows Defender Firewall
 2. Click Advanced Settings
