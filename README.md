@@ -2,6 +2,15 @@ Written By: LorentzFactr
 
 Date: 11/10/2021
 
+Backlog (To Do's):
+1. Manage exceptions for API disconnects
+2. Create config file so users only need to update a .txt with their unique info, instead of touching the code.
+3. "pythonize" the folder structure... (ie: create __init__, run file, etc.). 
+4. Turn the code into a .bat or executable.
+5. Migrate code base to Raspberry Pi and turn that into local server that never shuts down.
+6. Add BME280 (temp/hum) sensors to RPi for more data. Maybe a local webcam (would need to waterproof it).
+7. VERY STRETCH GOAL: figure out a way to visual DB within the code. (Removes the need for user to setup DB visualization tool)
+
 General System Overview:
 1. Python scripts pull API data, organizes data, and put data into DB.
 2. DB visualization tool pulls data from local DB and displays it on localhost:3000
