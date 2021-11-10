@@ -23,7 +23,9 @@ from def get_hotspot_data & def get_sensecap_data inside of helium_api_checker.p
 6. Link helium.db data source to Grafana
 7. Configure your dashboard however you like. This part you're on your own for now... and requires some basic knowledge SQLlite queries.
 	
-	Examples: SELECT cpuTemp,time FROM device
+	Examples: 
+		
+		  SELECT cpuTemp,time FROM device
 	
 		  SELECT wallet_balance FROM helium 
 
