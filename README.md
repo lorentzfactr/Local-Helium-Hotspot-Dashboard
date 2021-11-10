@@ -12,7 +12,8 @@ Prequisites:
 3. Python 3 installed with the following library: spllite3 
 
 Usage:
-**NOTE: Steps 1 & 2 are already done for you.
+
+***NOTE: Steps 1 & 2 are already done for you.***
 1. Create DB in the folder with the Python scripts helium.db with tables: device, helium
 2. Both tables need columns setup in the correct order. See return statements 
 from def get_hotspot_data & def get_sensecap_data inside of helium_api_checker.py
@@ -21,7 +22,9 @@ from def get_hotspot_data & def get_sensecap_data inside of helium_api_checker.p
 5. Open Grafana via web browser http://[localhost-ip]:3000
 6. Link helium.db data source to Grafana
 7. Configure your dashboard however you like. This part you're on your own for now... and requires some basic knowledge SQLlite queries.
+	
 	Examples: SELECT cpuTemp,time FROM device
+	
 		  SELECT wallet_balance FROM helium 
 
 Final Note: For continuous DB population without worry of shutting down, consider migrating this to a local Raspberry Pi with Grafana installed.
