@@ -1,5 +1,5 @@
 #Written By: Lorentz Factr
-#Date: 11/10/21
+#Date: 11/14/21
 #To Do: 
 # 1. Make exceptions for API's that can't connect. Right now, script will exit if an API goes down.
 #    Forcing you to restart the script and missing mins/hours/days of data...
@@ -12,16 +12,16 @@ from helium_api_checker import Retrieve
 import time
 
 #Your Three Word Hotspot Name
-hotspot_name = 'your-silly-name'
+hotspot_name = 'your-hotspot-name'
 
 #Your Sensecap M1 Serial Number
-device_sn = 'xxxxxxxxxxxxxxxxxx'
+device_sn = 'xxxxxxxxxxxxxxxxxxxxxxxx'
 
 #Your Sensecap API Key
-api_key = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+api_key = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 
 #Database update frequency in seconds
-frequency = 5
+frequency = 120
 
 #Instatiate the database
 conn = sqlite3.connect('helium.db')
@@ -44,10 +44,17 @@ def update_DB(d,table):
 
 
 def main():
-    update_DB(get.get_sensecap_data(), device_table)
-    update_DB(get.get_hotspot_data(), helium_table)
+    try: 
+        update_DB(get.get_sensecap_data(), device_table)
+    except KeyError:
+        print("\nMissed data point..." + get.time)
+    
+    try: 
+        update_DB(get.get_hotspot_data(), helium_table)
+    except KeyError:
+        print("\nMissed data point..." + get.time)
     #conn.close()
-    print("\nDB Updated...")
+    print("\nDB updated at "+ get.time)
     time.sleep(frequency)
 
 if __name__ == "__main__":
