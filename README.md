@@ -1,6 +1,8 @@
 Written By: LorentzFactr
 
-Date: 11/10/2021
+Date: 11/14/2021
+
+11/14/2021 Update: added error checker in the event the API has bad response, no dict key or vals.
 
 Backlog (To Do's):
 1. Manage exceptions for API disconnects
