@@ -1,7 +1,5 @@
 Written By: LorentzFactr
 
-Date: 11/14/2021
-
 11/17/2021 Updates:
 
 	- Improved error handling of bad API response. Only accepts status code 200 and doesn't kill program otherwise.
