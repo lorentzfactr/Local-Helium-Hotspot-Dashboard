@@ -1,5 +1,5 @@
-#Written By: Lorentz Factr
-#Date: 11/14/21
+# Written By: LorentzFactr
+# Date: 11/17/21
 
 import requests
 from datetime import datetime as d
@@ -17,19 +17,44 @@ class Retrieve:
         self.hotspot_name = hotspot_name
         self.device_sn = device_sn
         self.api_key = api_key
-        
 
     def hotspot_url(self):
         response = requests.get("https://api.helium.io/v1/hotspots/name/" + self.hotspot_name)
+        #print("(Hotspot URL) Helium URL request response: ", response.status_code)
+        try:
+            response.raise_for_status()
+        except requests.exceptions.HTTPError as e:
+            # If response is not 200, return and error note
+            return "Error: " + str(e)
+        
+        # Response must 200 in order to the json object
         return response.json()
+        
 
-    def account_url(self):
-        response = requests.get("https://api.helium.io/v1/accounts/" + self.hotspot_url()['data'][0]['owner'])
+    def account_url(self, address):
+        response = requests.get("https://api.helium.io/v1/accounts/" + address)
+        #print("(Account URL) Helium URL request response: ", response.status_code)
+        try:
+            response.raise_for_status()
+        except requests.exceptions.HTTPError as e:
+            # If response is not 200, return and error note
+            return "Error: " + str(e)
+        
+        # Response must 200 in order to the json object
         return response.json()
+       
 
     def sensecap_url(self):
         sensecap_url = 'https://status.sensecapmx.cloud/api/openapi/device/view_device?sn='+ self.device_sn + '&api_key=' + self.api_key
         response = requests.get(sensecap_url)
+        #print("Sensecap URL request response: ", response.status_code)
+        try:
+            response.raise_for_status()
+        except requests.exceptions.HTTPError as e:
+            # If response is not 200, return and error note
+            return "Error: " + str(e)
+        
+        # Response must 200 in order to the json object
         return response.json()
 
     def account_activity_url(self, min_time, bucket):
@@ -79,12 +104,19 @@ class Retrieve:
     def get_hotspot_data(self):
         now = d.utcnow()
         time = now.isoformat("T")+"Z"
+        
+        # Don't continue if there is a response error
         hotspot_data = self.hotspot_url()
-        account_data = self.account_url()
+        if "Error: " in hotspot_data:
+            return hotspot_data
+        
+        # Don't continue if there is a response error
+        account_data = self.account_url(hotspot_data['data'][0]['owner'])
+        if "Error: " in account_data:
+            return account_data
+        
         quote = self.market_price('HNT', 'priceUsd')
-        return self.organize_hotspot_data(hotspot_data,account_data, quote, time)
-
-    def organize_hotspot_data(self, hotspot_data, account_data, quote, time):
+        
         return {'owner': hotspot_data['data'][0]['owner'], 
                 'block': hotspot_data['data'][0]['block'], 
                 'block_added': hotspot_data['data'][0]['block_added'], 
@@ -101,7 +133,11 @@ class Retrieve:
                 'time': time
                 }
     def get_sensecap_data(self):
-        data = self.sensecap_url()['data']
+        data = self.sensecap_url()
+        # Don't continue if there is a response error
+        if "Error: " in data:
+            return data
+        data = data['data']
         now = d.utcnow()
         time = now.isoformat("T")+"Z"
         if data['connected'] == 1:
