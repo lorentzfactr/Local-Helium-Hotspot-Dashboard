@@ -2,7 +2,8 @@ Written By: LorentzFactr
 
 Date: 11/14/2021
 
-11/17/2021 Updates
+11/17/2021 Updates:
+
 	- Improved error handling of bad API response. Only accepts status code 200 and doesn't kill program otherwise.
 	- Reduced API load by only requesting https://api.helium.io/v1/hotspots/name/hotspots/name/... once instead of twice
 	- Removed unnecessary "organizer" function and stuffed it into the return
