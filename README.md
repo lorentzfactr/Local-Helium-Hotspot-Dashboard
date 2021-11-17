@@ -2,10 +2,15 @@ Written By: LorentzFactr
 
 Date: 11/14/2021
 
+11/17/2021 Updates
+	- Improved error handling of bad API response. Only accepts status code 200 and doesn't kill program otherwise.
+	- Reduced API load by only requesting https://api.helium.io/v1/hotspots/name/hotspots/name/... once instead of twice
+	- Removed unnecessary "organizer" function and stuffed it into the return
+	
 11/14/2021 Update: added error checker in the event the API has bad response, no dict key or vals.
 
 Backlog (To Do's):
-1. ~~Manage exceptions for API disconnects~~ (11/14 update should handle this. Still testing though...)
+1. ~~Manage exceptions for API disconnects~~  ~~(11/14 update should handle this. Still testing though...)~~ (11/17 update has resolved this)
 2. Create config file so users only need to update a .txt with their unique info, instead of touching the code.
 3. "pythonize" the folder structure... (ie: create __init__, run file, etc.). 
 4. Turn the code into a .bat or executable.
